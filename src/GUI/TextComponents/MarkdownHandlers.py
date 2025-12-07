@@ -7,6 +7,12 @@ import xml.etree.ElementTree as etree
 
 REGISTER_EXTENSIONS = [] # There has to be a better way of doing this (maybe not doing this at all?)
 
+class ExtensionInterface:
+    @staticmethod
+    def registerDefinition(): 
+        pass 
+
+
 # Note Extension 
 class NoteTagInlineProcessor(InlineProcessor):
     def handleMatch(self, m, data):
@@ -37,6 +43,7 @@ class DefinitionBlockProcessor(BlockProcessor):
 
         if match:
             title, content = match.groups() 
+            print("Hello")
 
             # Create custom html structure 
             container = etree.SubElement(parent, "div")
@@ -49,6 +56,7 @@ class DefinitionBlockProcessor(BlockProcessor):
             content_el = etree.SubElement(container, "span")
             content_el.set("style", TextSpace.DEF_CONTENT)
             content_el.text = content
+           
             
 class DollarColonExtension(markdown.Extension):
     def extendMarkdown(self, md):
